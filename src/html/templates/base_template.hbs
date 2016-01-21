@@ -1,27 +1,19 @@
-<div class="table-responsive" style="{{#if display}}display:{{display}};{{/if}}">
-    <table class="table table-hover" data-tableexport-display="always">
-        <thead style="background-color: #337ab7; color: white;">
-        {{#each header}}
-            <tr>
-                {{#each this}}
-                    <th style="{{#if this.text-align}}text-align:{{this.text-align}};{{/if}} border: 1px solid white;" rowspan="{{this.RowSpan}}" colspan="{{this.ColSpan}}"> {{this.Label}}</th>
-                {{/each}}
-            </tr>
-        {{/each}}
-        </thead>
-        <tbody>
-        {{#each rows}}
-            <!-- TODO: remove it from here the style? -->
-            {{#if rowShade}}
-                <tr style="background-color: #8bb8df; color: white;">
-            {{else}}
-                <tr>
-            {{/if}}
-            {{#each data}}
-                    <td style="{{#if this.text-align}}text-align:{{this.text-align}};{{/if}}">{{this.label}}</td>
-            {{/each}}
-            </tr>
-        {{/each}}
-        </tbody>
-    </table>
+
+<div id='interactive_download_selectors'></div>
+
+<div class='row'>
+
+    <div class='col-md-2 pull-right'>
+        <button class='btn btn-primary pull-right' id='preview_button'>
+            <i class='fa fa-search'></i> Export{{preview_label}}
+        </button>
+    </div>
+    <div class='col-md-2 pull-right'>
+        <span id='download_options_placeholder' class='pull-right'></span>
+        <button class='btn btn-primary pull-right' id='preview_button'>
+            <i class='fa fa-search'></i> Preview{{preview_label}}
+        </button>
+    </div>
 </div>
+
+<div data-role='table'></div>

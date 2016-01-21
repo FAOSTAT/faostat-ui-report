@@ -6,10 +6,10 @@ define(function () {
     var config = {
 
         paths : {
-            'fs-r-t/start': './start',
-            'fs-r-t/html': '../html',
-            'fs-r-t/config': '../../config',
-            'fs-r-t/nls': '../../nls',
+            'fs-r-p/start': './start',
+            'fs-r-p/html': '../html',
+            'fs-r-p/config': '../../config',
+            'fs-r-p/nls': '../../nls',
 
             // third party libs
             jquery: '{FENIX_CDN}/js/jquery/2.1.1/jquery.min',
