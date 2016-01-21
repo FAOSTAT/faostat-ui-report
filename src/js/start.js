@@ -53,8 +53,6 @@ define([
             this.$EXPORT_BUTTON = this.$CONTAINER.find(s.EXPORT_BUTTON);
             this.$PREVIEW_BUTTON = this.$CONTAINER.find(s.PREVIEW_BUTTON);
 
-            log.info(this.$REPORT_TABLE.length)
-
             this.reportTable = new ReportTable();
         };
 
