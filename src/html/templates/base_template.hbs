@@ -2,18 +2,16 @@
 <div id='report_selectors'></div>
 
 <div class='row'>
-
-    <div class='col-md-2 pull-right'>
-        <button class='btn btn-primary pull-right' id='preview_button'>
-            <i class='fa fa-search'></i> Export{{preview_label}}
+    <div class='col-lg-12'>
+        <button class="btn btn-primary pull-right" data-role='export'>
+            <i class="fa fa-download"></i> Export{{export}}
         </button>
-    </div>
-    <div class='col-md-2 pull-right'>
-        <span id='download_options_placeholder' class='pull-right'></span>
-        <button class='btn btn-primary pull-right' id='preview_button'>
+        <span>
+            <button class='btn btn-primary pull-right' data-role='preview'>
             <i class='fa fa-search'></i> Preview{{preview_label}}
-        </button>
+            </button>
+        </span>
     </div>
 </div>
 
-<div data-role='table'></div>
+<div data-role='table' style="padding-top:35px;"></div>
