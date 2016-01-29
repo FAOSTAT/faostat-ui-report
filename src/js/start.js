@@ -9,7 +9,7 @@ define([
         'handlebars',
         'text!fs-r-p/html/templates/base_template.hbs',
         'fs-r-t/start',
-        'FAOSTAT_UI_DOWNLOAD_SELECTORS_MANAGER',
+        'fs-s-m/start',
         'amplify'
     ],
     function ($, log, C, E, Common, _, Handlebars, template, ReportTable, DownloadSelectorsManager) {
@@ -18,7 +18,7 @@ define([
 
         var s = {
 
-            SELECTORS: 'report_selectors',
+            SELECTORS: '[data-role="report_selectors"]',
             REPORT_TABLE: '[data-role=table]',
             EXPORT_BUTTON: '[data-role=export]',
             PREVIEW_BUTTON: '[data-role=preview]'
@@ -26,7 +26,7 @@ define([
         },
         defaultOptions = {
 
-            request: {
+            DEFAULT_REQUEST: {
                 List1Codes: null,
                 List2Codes: null,
                 List3Codes: null,
@@ -80,13 +80,13 @@ define([
             var self = this;
 
             /* Initiate components. */
-            this.download_selectors_manager = new DownloadSelectorsManager();
+            this.selectorsManager = new DownloadSelectorsManager();
 
             /* Initiate selectors. */
-            this.download_selectors_manager.init({
+            this.selectorsManager.init({
                 lang: Common.getLocale(),
-                placeholder_id: s.SELECTORS,
-                domain: this.o.code,
+                container: s.SELECTORS,
+                code: this.o.code,
                 report_code: this.o.code,
                 multiple: false,
                 callback: {
@@ -123,29 +123,22 @@ define([
 
         Report.prototype.getRequestObject = function () {
 
-            var userSelection = this.download_selectors_manager.get_user_selection(),
-                obj = {
-                    List1Codes: userSelection.list1Codes || null,
-                    List2Codes: userSelection.list2Codes || null,
-                    List3Codes: userSelection.list3Codes || null,
-                    List4Codes: userSelection.list4Codes || null,
-                    List5Codes: userSelection.list5Codes || null,
-                    List6Codes: userSelection.list6Codes || null,
-                    List7Codes: userSelection.list7Codes || null,
-                    List1AltCodes: userSelection.list1AltCodes || null,
-                    List2AltCodes: userSelection.list2AltCodes || null,
-                    List3AltCodes: userSelection.list3AltCodes || null,
-                    List4AltCodes: userSelection.list4AltCodes || null,
-                    List5AltCodes: userSelection.list5AltCodes || null,
-                    List6AltCodes: userSelection.list6AltCodes || null,
-                    List7AltCodes: userSelection.list7AltCodes || null
-                };
+            var selections = this.selectorsManager.getSelections(),
+                request = $.extend(true, {}, this.o.DEFAULT_REQUEST, {domain_code: this.o.code});
 
-            return $.extend(true, {}, {domain_code: this.o.code}, obj);
+            _.each(selections, function(d) {
+                $.extend(true, request, d.request);
+            });
+
+            return request;
         };
 
-        Report.prototype.isNotRendered = function () {
-            return this.$CONTAINER === undefined;
+        Report.prototype.selectionChange = function () {
+
+            log.info('Report.selectionChange;');
+
+            this.$REPORT_TABLE.empty();
+
         };
 
         Report.prototype.bindEventListeners = function () {
@@ -159,11 +152,13 @@ define([
                 self.table('export');
             });
 
+            amplify.subscribe(E.DOWNLOAD_SELECTION_CHANGE, this, this.selectionChange);
+
         };
 
         Report.prototype.unbindEventListeners = function () {
-            this.$PREVIEW_BUTTON.off();
-            this.$EXPORT_BUTTON.off();
+            this.$PREVIEW_BUTTON.off('click');
+            this.$EXPORT_BUTTON.off('click');
         };
 
         Report.prototype.destroy = function () {
