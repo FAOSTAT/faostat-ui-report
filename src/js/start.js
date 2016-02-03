@@ -8,7 +8,8 @@ define([
         'underscore',
         'handlebars',
         'text!fs-r-p/html/templates/base_template.hbs',
-        'i18n!fs-r-p/nls/translate',
+        //'i18n!fs-r-p/nls/translate',
+        'i18n!nls/download',
         'fs-r-t/start',
         'fs-s-m/start',
         'amplify'
