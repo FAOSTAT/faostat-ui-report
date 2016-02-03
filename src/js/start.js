@@ -8,11 +8,12 @@ define([
         'underscore',
         'handlebars',
         'text!fs-r-p/html/templates/base_template.hbs',
+        'i18n!fs-r-p/nls/translate',
         'fs-r-t/start',
         'fs-s-m/start',
         'amplify'
     ],
-    function ($, log, C, E, Common, _, Handlebars, template, ReportTable, DownloadSelectorsManager) {
+    function ($, log, C, E, Common, _, Handlebars, template, i18nLabels, ReportTable, DownloadSelectorsManager) {
 
         'use strict';
 
@@ -65,7 +66,7 @@ define([
             this.$CONTAINER = $(this.o.container);
 
             var t = Handlebars.compile(template);
-            this.$CONTAINER.html(t({}));
+            this.$CONTAINER.html(t(i18nLabels));
 
             this.$SELECTORS = this.$CONTAINER.find(s.SELECTORS);
             this.$REPORT_TABLE = this.$CONTAINER.find(s.REPORT_TABLE);
