@@ -23,7 +23,8 @@ define([
             SELECTORS: '[data-role="report_selectors"]',
             REPORT_TABLE: '[data-role=table]',
             EXPORT_BUTTON: '[data-role=export]',
-            PREVIEW_BUTTON: '[data-role=preview]'
+            PREVIEW_BUTTON: '[data-role=preview]',
+            METADATA_BUTTON: '[data-role="metadata"]'
 
         },
         defaultOptions = {
@@ -73,6 +74,7 @@ define([
             this.$REPORT_TABLE = this.$CONTAINER.find(s.REPORT_TABLE);
             this.$EXPORT_BUTTON = this.$CONTAINER.find(s.EXPORT_BUTTON);
             this.$PREVIEW_BUTTON = this.$CONTAINER.find(s.PREVIEW_BUTTON);
+            this.$METADATA_BUTTON = this.$CONTAINER.find(s.METADATA_BUTTON);
 
             this.reportTable = new ReportTable();
         };
@@ -150,8 +152,15 @@ define([
             this.$PREVIEW_BUTTON.on('click', function() {
                 self.table('preview');
             });
+
             this.$EXPORT_BUTTON.on('click', function() {
                 self.table('export');
+            });
+
+            this.$METADATA_BUTTON.on('click', function () {
+                amplify.publish(E.METADATA_SHOW, {
+                    code: self.o.code
+                });
             });
 
             amplify.subscribe(E.DOWNLOAD_SELECTION_CHANGE, this, this.selectionChange);
@@ -161,6 +170,7 @@ define([
         Report.prototype.unbindEventListeners = function () {
             this.$PREVIEW_BUTTON.off('click');
             this.$EXPORT_BUTTON.off('click');
+            this.$METADATA_BUTTON.off('click');
         };
 
         Report.prototype.destroy = function () {
