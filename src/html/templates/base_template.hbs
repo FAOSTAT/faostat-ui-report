@@ -1,29 +1,33 @@
 
-<p>{{{report_download_welcome}}}</p>
-
 <br>
 
-<div class="row">
+<p>{{{report_download_welcome}}}</p>
+
+<!--<div class="row">
     <div class="col-xs-12">
         <button class="btn btn-primary pull-right" data-role="metadata">
             <i class="fa fa-info-circle"></i> {{metadata}}
         </button>
     </div>
-</div>
+</div>-->
 
-<div style="padding-top:10px;" data-role="report_selectors"></div>
+<br>
 
-<div class='row'>
-    <div class='col-lg-12'>
-        <button class="btn btn-primary pull-right" data-role='export'>
+<div data-role="report_selectors"></div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <button class="btn btn-primary pull-right" data-role="export">
             <i class="fa fa-download"></i> {{download_report}}
         </button>
-        <span>
-            <button class='btn btn-primary pull-right' data-role='preview'>
-            <i class='fa fa-search'></i> {{preview}}
-            </button>
-        </span>
+        <button class="btn btn-info pull-right" data-role="preview" style="margin-right:5px;">
+            <i class="fa fa-search"></i> {{preview}}
+        </button>
     </div>
 </div>
 
-<div data-role='table' style="padding-top:35px;"></div>
+<br>
+<br>
+<br>
+
+<div data-role='table' style="font-size:12px;"></div>
