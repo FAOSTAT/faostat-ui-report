@@ -148,13 +148,21 @@ define([
 
         Report.prototype.analyticsPreviewData = function () {
 
-            // TODO: add analytics
+            amplify.publish(E.GOOGLE_ANALYTICS_EVENT, {
+                category: A.report.preview.category,
+                action: A.report.preview.action,
+                label: this.o.code
+            });
 
         };
 
         Report.prototype.analyticsDownloadReport = function () {
 
-            // TODO: add analytics
+            amplify.publish(E.GOOGLE_ANALYTICS_EVENT, {
+                category: A.report.download.category,
+                action: A.report.download.action,
+                label: this.o.code
+            });
 
         };
 
@@ -196,6 +204,7 @@ define([
 
             if (this.selectorsManager && _.isFunction(this.selectorsManager.destroy)) {
                 this.selectorsManager.destroy();
+                delete this.selectorsManager;
             }
 
             this.$CONTAINER.empty();
