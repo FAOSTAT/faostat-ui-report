@@ -1,9 +1,10 @@
-/* global define, console, amplify */
+/*global define, console, amplify */
 define([
         'jquery',
         'loglevel',
         'config/Config',
         'config/Events',
+        'config/Analytics',
         'globals/Common',
         'underscore',
         'handlebars',
@@ -14,7 +15,7 @@ define([
         'fs-s-m/start',
         'amplify'
     ],
-    function ($, log, C, E, Common, _, Handlebars, template, i18nLabels, ReportTable, DownloadSelectorsManager) {
+    function ($, log, C, E, A, Common, _, Handlebars, template, i18nLabels, ReportTable, DownloadSelectorsManager) {
 
         'use strict';
 
@@ -113,14 +114,14 @@ define([
                 request: this.getRequestObject()
             });
 
-            log.info(this.reportTable);
-
             if ( type === 'export') {
                 this.reportTable.export();
+                this.analyticsDownloadReport();
             }
 
             if ( type === 'preview') {
                 this.reportTable.render();
+                this.analyticsPreviewData();
             }
 
         };
@@ -142,6 +143,18 @@ define([
             log.info('Report.selectionChange;');
 
             this.$REPORT_TABLE.empty();
+
+        };
+
+        Report.prototype.analyticsPreviewData = function () {
+
+            // TODO: add analytics
+
+        };
+
+        Report.prototype.analyticsDownloadReport = function () {
+
+            // TODO: add analytics
 
         };
 
@@ -168,14 +181,22 @@ define([
         };
 
         Report.prototype.unbindEventListeners = function () {
+
             this.$PREVIEW_BUTTON.off('click');
             this.$EXPORT_BUTTON.off('click');
             this.$METADATA_BUTTON.off('click');
+
+            amplify.unsubscribe(E.DOWNLOAD_SELECTION_CHANGE, this.selectionChange);
+
         };
 
         Report.prototype.destroy = function () {
 
             this.unbindEventListeners();
+
+            if (this.selectorsManager && _.isFunction(this.selectorsManager.destroy)) {
+                this.selectorsManager.destroy();
+            }
 
             this.$CONTAINER.empty();
 
