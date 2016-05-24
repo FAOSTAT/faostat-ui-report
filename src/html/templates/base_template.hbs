@@ -1,28 +1,38 @@
 
-<br>
+<div class="panel panel-default hoverable">
+    <div class="panel-body">
 
-<p>{{{report_download_welcome}}}</p>
+        <div data-role="report_selectors"></div>
 
-<!--<div class="row">
-    <div class="col-xs-12">
-        <button class="btn btn-primary pull-right" data-role="metadata">
-            <i class="fa fa-info-circle"></i> {{metadata}}
-        </button>
-    </div>
-</div>-->
+        <div class="fs-download-options">
 
-<br>
+            <div class="panel-body">
 
-<div data-role="report_selectors"></div>
+                <div class="row fs-download-options-buttons">
 
-<div class="row">
-    <div class="col-lg-12">
-        <button class="btn btn-primary pull-right" data-role="export">
-            <i class="fa fa-download"></i> {{download_report}}
-        </button>
-        <button class="btn btn-info pull-right" data-role="preview" style="margin-right:5px;">
-            <i class="fa fa-search"></i> {{preview}}
-        </button>
+                    <div class="hidden-xs col-sm-4">
+                        <!--<a class="btn btn-link btn-block" target="_blank" href="https://en.wikipedia.org/wiki/Comma-separated_values"><i class="material-icons">info_outline</i>{{what_is_a_csv}}</a>-->
+                    </div>
+
+                    <div class="col-xs-6 col-sm-4">
+                        <button class="btn btn-primary btn-block waves-effect truncate" data-role="preview">
+                            <i class="material-icons left">search</i>
+                            {{show_data}}Show Data
+                        </button>
+                    </div>
+
+                    <div class="col-xs-6 col-sm-4">
+                        <button class="btn btn-default btn-block waves-effect waves-light truncate" data-role="export">
+                            <i class="material-icons left">file_download</i>
+                            {{download_data}}
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
     </div>
 </div>
 
@@ -30,4 +40,4 @@
 <br>
 <br>
 
-<div data-role='table' style="font-size:12px;"></div>
+<div data-role='table' style="font-size:9px;"></div>

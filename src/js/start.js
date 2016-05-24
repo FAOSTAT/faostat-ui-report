@@ -121,6 +121,9 @@ define([
 
             if ( type === 'preview') {
                 this.reportTable.render();
+
+                amplify.publish(E.SCROLL_TO_SELECTOR, {container: this.$REPORT_TABLE});
+
                 this.analyticsPreviewData();
             }
 
