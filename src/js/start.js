@@ -15,7 +15,9 @@ define([
         'fs-s-m/start',
         'amplify'
     ],
-    function ($, log, C, E, A, Common, _, Handlebars, template, i18nLabels, ReportTable, DownloadSelectorsManager) {
+    function ($, log, C, E, A, Common, _, Handlebars, template, i18nLabels,
+              ReportTable,
+              DownloadSelectorsManager) {
 
         'use strict';
 
