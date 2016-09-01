@@ -26,8 +26,7 @@ define([
             SELECTORS: '[data-role="report_selectors"]',
             REPORT_TABLE: '[data-role=table]',
             EXPORT_BUTTON: '[data-role=export]',
-            PREVIEW_BUTTON: '[data-role=preview]',
-            METADATA_BUTTON: '[data-role="metadata"]'
+            PREVIEW_BUTTON: '[data-role=preview]'
 
         },
         defaultOptions = {
@@ -77,7 +76,6 @@ define([
             this.$REPORT_TABLE = this.$CONTAINER.find(s.REPORT_TABLE);
             this.$EXPORT_BUTTON = this.$CONTAINER.find(s.EXPORT_BUTTON);
             this.$PREVIEW_BUTTON = this.$CONTAINER.find(s.PREVIEW_BUTTON);
-            this.$METADATA_BUTTON = this.$CONTAINER.find(s.METADATA_BUTTON);
 
             this.reportTable = new ReportTable();
         };
@@ -123,9 +121,6 @@ define([
 
             if ( type === 'preview') {
                 this.reportTable.render();
-
-                amplify.publish(E.SCROLL_TO_SELECTOR, {container: this.$REPORT_TABLE});
-
                 this.analyticsPreviewData();
             }
 
@@ -145,8 +140,7 @@ define([
 
         Report.prototype.selectionChange = function () {
 
-            log.info('Report.selectionChange;');
-
+            // remove the table on selection change
             this.$REPORT_TABLE.empty();
 
         };
@@ -183,11 +177,6 @@ define([
                 self.table('export');
             });
 
-            this.$METADATA_BUTTON.on('click', function () {
-                amplify.publish(E.METADATA_SHOW, {
-                    code: self.o.code
-                });
-            });
 
             amplify.subscribe(E.DOWNLOAD_SELECTION_CHANGE, this, this.selectionChange);
 
@@ -195,9 +184,12 @@ define([
 
         Report.prototype.unbindEventListeners = function () {
 
-            this.$PREVIEW_BUTTON.off('click');
-            this.$EXPORT_BUTTON.off('click');
-            this.$METADATA_BUTTON.off('click');
+            if (this.$PREVIEW_BUTTON) {
+                this.$PREVIEW_BUTTON.off('click');
+            }
+            if (this.$EXPORT_BUTTON) {
+                this.$EXPORT_BUTTON.off('click');
+            }
 
             amplify.unsubscribe(E.DOWNLOAD_SELECTION_CHANGE, this.selectionChange);
 
