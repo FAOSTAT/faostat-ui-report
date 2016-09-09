@@ -132,7 +132,10 @@ define([
                 request = $.extend(true, {}, this.o.DEFAULT_REQUEST, {domain_code: this.o.code});
 
             _.each(selections, function(d) {
-                $.extend(true, request, d.request);
+                // TODO: fix it with the right API
+                // $.extend(true, request, d.request);
+                $.extend(true, request, d.requestReportTable);
+
             });
 
             return request;
