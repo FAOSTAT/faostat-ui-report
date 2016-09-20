@@ -121,9 +121,6 @@ define([
 
             if ( type === 'preview') {
                 this.reportTable.render();
-
-                amplify.publish(E.SCROLL_TO_SELECTOR, {container: this.$REPORT_TABLE});
-
                 this.analyticsPreviewData();
             }
 
@@ -135,7 +132,10 @@ define([
                 request = $.extend(true, {}, this.o.DEFAULT_REQUEST, {domain_code: this.o.code});
 
             _.each(selections, function(d) {
-                $.extend(true, request, d.request);
+                // TODO: fix it with the right API
+                // $.extend(true, request, d.request);
+                $.extend(true, request, d.requestReportTable);
+
             });
 
             return request;
@@ -143,8 +143,7 @@ define([
 
         Report.prototype.selectionChange = function () {
 
-            log.info('Report.selectionChange;');
-
+            // remove the table on selection change
             this.$REPORT_TABLE.empty();
 
         };
